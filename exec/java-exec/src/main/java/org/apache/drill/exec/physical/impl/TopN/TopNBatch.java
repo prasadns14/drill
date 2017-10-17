@@ -69,7 +69,7 @@ import com.sun.codemodel.JExpr;
 
 import static org.bouncycastle.asn1.x500.style.RFC4519Style.l;
 
-public class TopNBatch extends AbstractRecordBatch<TopN> {
+public class  TopNBatch extends AbstractRecordBatch<TopN> {
   static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TopNBatch.class);
 
   private  final int batchPurgeThreshold;
@@ -187,12 +187,13 @@ public class TopNBatch extends AbstractRecordBatch<TopN> {
       outer: while (true) {
         Stopwatch watch = Stopwatch.createStarted();
         IterOutcome upstream;
-        if (first) {
-          upstream = IterOutcome.OK_NEW_SCHEMA;
-          first = false;
-        } else {
-          upstream = next(incoming);
-        }
+//        if (first) {
+//          upstream = IterOutcome.OK_NEW_SCHEMA;
+//          first = false;
+//        } else {
+//          upstream = next(incoming);
+//        }
+        upstream = next(incoming);
         if (upstream == IterOutcome.OK && schema == null) {
           upstream = IterOutcome.OK_NEW_SCHEMA;
           container.clear();
