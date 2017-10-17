@@ -194,6 +194,10 @@ public class  TopNBatch extends AbstractRecordBatch<TopN> {
 //          upstream = next(incoming);
 //        }
         upstream = next(incoming);
+        if (first && upstream != IterOutcome.NONE) {
+          upstream = IterOutcome.OK_NEW_SCHEMA;
+          first = false;
+        }
         if (upstream == IterOutcome.OK && schema == null) {
           upstream = IterOutcome.OK_NEW_SCHEMA;
           container.clear();
